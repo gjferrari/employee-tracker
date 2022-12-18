@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+.vscode
+
+.DS_Store
+## protecting mysql password from being blasted out to github 
+.env

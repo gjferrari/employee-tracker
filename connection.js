@@ -1,16 +1,16 @@
-const Sequelize = require("sequelize");
 const dotenv = require("dotenv");
 const cTable = require("console.table");
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
+const db = mysql.createConnection(
   {
     host: "localhost",
-    dialect: "mysql",
-    port: 3306,
-  }
+    user: "root",
+    password: process.env.DB_NAME,
+    database: "employee_db",
+  },
+  console.log(`Connected to the classlist_db database.`)
 );
 
-module.exports = sequelize;
+// db.query("SELECT * FROM students", function (err, results) {
+//   console.log(results);
+// });

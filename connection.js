@@ -8,9 +8,11 @@ const db = mysql.createConnection(
     password: process.env.DB_NAME,
     database: "employee_db",
   },
-  console.log(`Connected to the classlist_db database.`)
+  console.log(`Connected to the employee database.`)
 );
 
 // db.query("SELECT * FROM students", function (err, results) {
 //   console.log(results);
 // });
+
+//I really do not understand this

@@ -83,9 +83,46 @@ function viewDepartments() {
     loadMainPromt();
   });
 }
-function viewRoles() {}
-function viewEmployees() {}
-function addDeparment() {}
+function viewRoles() {
+  db.query("SELECT * FROM roles", (err, res) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log("Here are the company roles: \n");
+    console.table(res);
+    loadMainPromt();
+  });
+}
+function viewEmployees() {
+  db.query("SELECT * FROM employees", (err, res) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log("Here are your current employees: \n");
+    console.table(res);
+    loadMainPromt();
+  });
+}
+function addDeparment() {
+  inquirer
+    .prompt({
+      type: "input",
+      name: "departmentName",
+      message: "What is the name of the department?",
+    })
+    .then((answer) => {
+      const sql = `INSERT INTO department (name)
+      VALUES (?)`;
+      const params = [answer.department_name];
+      db.query(sql, params, (err, res) => {
+        if (err) {
+          console.error(err);
+        }
+        console.log("Added" + res.departmentName + "to Database");
+        loadMainPromt();
+      });
+    });
+}
 function addRole() {}
 function addEmployee() {}
 function updateEmployee() {

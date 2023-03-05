@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+require("dotenv").config();
 const cTable = require("console.table");
 
 const db = require("./db/connection");

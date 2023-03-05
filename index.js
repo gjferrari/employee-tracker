@@ -73,10 +73,38 @@ async function loadMainPromt() {
   );
 }
 
-function viewDepartments() {}
+function viewDepartments() {
+  db.query("SELECT * FROM department", (err, res) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log("Here are your available departments: \n");
+    console.table(res);
+    loadMainPromt();
+  });
+}
 function viewRoles() {}
 function viewEmployees() {}
 function addDeparment() {}
 function addRole() {}
 function addEmployee() {}
-function updateEmployee() {}
+function updateEmployee() {
+  const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
+  const params = [req.body.review, req.params.id];
+
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+    } else if (!result.affectedRows) {
+      res.json({
+        message: "Movie not found",
+      });
+    } else {
+      res.json({
+        message: "success",
+        data: req.body,
+        changes: result.affectedRows,
+      });
+    }
+  });
+}

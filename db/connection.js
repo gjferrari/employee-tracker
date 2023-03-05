@@ -9,7 +9,7 @@ const db = mysql.createConnection(
   console.log(`Connected to the employee database.`)
 );
 
-mondel.exports = db;
+module.exports = db;
 //     {
 //       type: "input",
 //       name: "username",

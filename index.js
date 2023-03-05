@@ -1,7 +1,9 @@
 const dotenv = require("dotenv");
 const cTable = require("console.table");
+
+const db = require("./db/connection");
 const inquirer = require("inquirer");
-const { left } = require("inquirer/lib/utils/readline");
+// const { left } = require("inquirer/lib/utils/readline");
 
 async function loadMainPromt() {
   return (
@@ -123,25 +125,109 @@ function addDeparment() {
       });
     });
 }
-function addRole() {}
-function addEmployee() {}
-function updateEmployee() {
-  const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
-  const params = [req.body.review, req.params.id];
-
-  db.query(sql, params, (err, result) => {
-    if (err) {
-      res.status(400).json({ error: err.message });
-    } else if (!result.affectedRows) {
-      res.json({
-        message: "Movie not found",
+function addRole() {
+  inquirer
+    .prompt(
+      {
+        type: "input",
+        name: "title",
+        message: "What is the name of the role?",
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "What is the salary for this role?",
+      },
+      {
+        type: "input",
+        name: "departmentID",
+        message: "What is the deparment ID for this role",
+      }
+    )
+    .then((answer) => {
+      const sql = `INSERT INTO role (title, salary, department_id)
+    VALUES (?,?,?)`;
+      const params = [answer.title, answer.salary, answer.departmentID];
+      db.query(sql, params, (err, res) => {
+        if (err) {
+          console.error(err);
+        }
+        console.log("Added" + res.title + "to Database");
+        loadMainPromt();
       });
-    } else {
-      res.json({
-        message: "success",
-        data: req.body,
-        changes: result.affectedRows,
-      });
-    }
-  });
+    });
 }
+function addEmployee() {
+  inquirer
+    .prompt(
+      {
+        type: "input",
+        name: "firstName",
+        message: "What the employee's first name?",
+      },
+      {
+        type: "input",
+        name: "lastName",
+        message: "What is the employee's last name?",
+      },
+      {
+        type: "input",
+        name: "roleID",
+        message: "What is the role ID for this employee",
+      }
+    )
+    .then((answer) => {
+      const sql = `INSERT INTO role (first_name, last_name, role_id)
+  VALUES (?,?,?)`;
+      const params = [answer.firstName, answer.lastName, answer.roleID];
+      db.query(sql, params, (err, res) => {
+        if (err) {
+          console.error(err);
+        }
+        console.log("Added" + res.firstName + "to Database");
+        loadMainPromt();
+      });
+    });
+}
+// function updateEmployee() {
+//   inquirer
+//     .prompt(
+//       {
+//         type: "input",
+//         name: "firstName",
+//         message: "What is the first name of the employee you'd like to update",
+//       },
+//       {
+//         type: "input",
+//         name: "lastName",
+//         message: "What is the employee's last name?",
+//       },
+//       {
+//         type: "input",
+//         name: "roleID",
+//         message: "What is their employee ID",
+//       }
+//     )
+//     .then((answer) => {
+//       const sql = `UPDATE employee SET role_id = ? WHERE first_name = ?`;
+//       const params = [req.body.roleID, req.params.id];
+
+//       db.query(sql, params, (err, result) => {
+//         if (err) {
+//           res.status(400).json({ error: err.message });
+//         } else if (!result.affectedRows) {
+//           res.json({
+//             message: "Movie not found",
+//           });
+//         } else {
+//           res.json({
+//             message: "success",
+//             data: req.body,
+//             changes: result.affectedRows,
+//           });
+//         }
+//       });
+//     });
+// }
+
+loadMainPromt();

@@ -1,9 +1,11 @@
 require("dotenv").config();
-const cTable = require("console.table");
+// const cTable = require('console.table')
+
+// const { printTable } = require("console-table-printer");
 
 const db = require("./db/connection");
 const inquirer = require("inquirer");
-// const { left } = require("inquirer/lib/utils/readline");
+const { left } = require("inquirer/lib/utils/readline");
 
 async function loadMainPromt() {
   return (

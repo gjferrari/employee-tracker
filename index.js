@@ -51,25 +51,26 @@ async function loadMainPromt() {
       // https://www.w3schools.com/js/js_switch.asp
       .then((answers) => {
         switch (answers.choice) {
-          case "View all deparments":
+          case "VIEW_DEPARTMENTS":
             viewDepartments();
+
             break;
-          case "View all roles":
+          case "VIEW_ROLES":
             viewRoles();
             break;
-          case "View all employees":
+          case "VIEW_EMPLOYEES":
             viewEmployees();
             break;
-          case "Add a department":
+          case "ADD_DEPARTMENT":
             addDeparment();
             break;
-          case "Add a role":
+          case "ADD_ROLE":
             addRole();
             break;
-          case "Add an employee":
+          case "ADD_EMPLOYEE":
             addEmployee();
             break;
-          case "Update employee":
+          case "UPDATE_EMPLOYEE":
             updateEmployee();
             break;
         }
@@ -117,12 +118,12 @@ function addDeparment() {
     .then((answer) => {
       const sql = `INSERT INTO department (name)
       VALUES (?)`;
-      const params = [answer.department_name];
+      const params = [answer.departmentName];
       db.query(sql, params, (err, res) => {
         if (err) {
           console.error(err);
         }
-        console.log("Added" + res.departmentName + "to Database");
+        console.log("Added" + answer.departmentName + "to Database");
         loadMainPromt();
       });
     });
@@ -154,7 +155,7 @@ function addRole() {
         if (err) {
           console.error(err);
         }
-        console.log("Added" + res.title + "to Database");
+        console.log("Added" + answer.title + "to Database");
         loadMainPromt();
       });
     });

@@ -6,20 +6,16 @@
 
 This command-line application manages a company's employee database using Node.js, Inquirer, and MySQL.
 
-NOTE: THIS IN NOT A FINISHED PRODUCT
-
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [License](#license)
-- [Contributing](#contributing)
-- [Tests](#tests)
+- [Video](#video)
 - [Questions](#questions)
 
 ## Installation
 
-First clone the repository (git clone: git@github.com:gjferrari/employee-tracker.git), then run `node npm start` in the command terminal. To view the database, run `mysql -u root -p`
+First clone the repository (git clone: git@github.com:gjferrari/employee-tracker.git), then run `node npm start` in the command terminal. To view the database, run `mysql -u root -p`.
 
 ## Usage
 
@@ -29,13 +25,11 @@ This application allows the user to view and manage the departments, roles, and 
 
 This application is covered by the MIT license.
 
-## Contributing
+## Video
 
-None
+For a video walk through of this application, follow this link:
 
-## Tests
-
-None
+https://drive.google.com/file/d/10nwM7yXt-IjlMWy_e7iG7V17W0mzzB7H/view
 
 ## Questions
 

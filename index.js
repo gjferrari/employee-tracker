@@ -89,7 +89,7 @@ function viewDepartments() {
   });
 }
 function viewRoles() {
-  db.query("SELECT * FROM roles", (err, res) => {
+  db.query("SELECT * FROM role", (err, res) => {
     if (err) {
       console.error(err);
     }
@@ -99,7 +99,7 @@ function viewRoles() {
   });
 }
 function viewEmployees() {
-  db.query("SELECT * FROM employees", (err, res) => {
+  db.query("SELECT * FROM employee", (err, res) => {
     if (err) {
       console.error(err);
     }
@@ -160,8 +160,8 @@ async function addRole() {
       });
     });
 }
-function addEmployee() {
-  inquirer
+async function addEmployee() {
+  return inquirer
     .prompt([
       {
         type: "input",
@@ -180,9 +180,9 @@ function addEmployee() {
       },
     ])
     .then((answer) => {
-      const params = [answer.firstName, answer.lastName, answer.roleID];
-      const sql = `INSERT INTO role (first_name, last_name, role_id)
+      const sql = `INSERT INTO employee (first_name, last_name, role_id)
   VALUES (?,?,?)`;
+      const params = [answer.firstName, answer.lastName, answer.roleID];
       db.query(sql, params, (err, res) => {
         if (err) {
           console.error(err);

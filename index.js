@@ -128,9 +128,9 @@ function addDeparment() {
       });
     });
 }
-function addRole() {
-  inquirer
-    .prompt(
+async function addRole() {
+  return inquirer
+    .prompt([
       {
         type: "input",
         name: "title",
@@ -145,8 +145,8 @@ function addRole() {
         type: "input",
         name: "departmentID",
         message: "What is the deparment ID for this role",
-      }
-    )
+      },
+    ])
     .then((answer) => {
       const sql = `INSERT INTO role (title, salary, department_id)
     VALUES (?,?,?)`;
@@ -162,7 +162,7 @@ function addRole() {
 }
 function addEmployee() {
   inquirer
-    .prompt(
+    .prompt([
       {
         type: "input",
         name: "firstName",
@@ -177,17 +177,17 @@ function addEmployee() {
         type: "input",
         name: "roleID",
         message: "What is the role ID for this employee",
-      }
-    )
+      },
+    ])
     .then((answer) => {
+      const params = [answer.firstName, answer.lastName, answer.roleID];
       const sql = `INSERT INTO role (first_name, last_name, role_id)
   VALUES (?,?,?)`;
-      const params = [answer.firstName, answer.lastName, answer.roleID];
       db.query(sql, params, (err, res) => {
         if (err) {
           console.error(err);
         }
-        console.log("Added" + res.firstName + "to Database");
+        console.log("Added" + answer.firstName + "to Database");
         loadMainPromt();
       });
     });

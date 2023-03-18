@@ -53,7 +53,6 @@ async function loadMainPromt() {
         switch (answers.choice) {
           case "VIEW_DEPARTMENTS":
             viewDepartments();
-
             break;
           case "VIEW_ROLES":
             viewRoles();
@@ -76,6 +75,27 @@ async function loadMainPromt() {
         }
       })
   );
+}
+
+async function closeApp() {
+  return inquirer
+    .prompt([
+      {
+        type: "confirm",
+        name: "exit",
+        message: "Would you like to exit the application",
+        default: false,
+      },
+    ])
+    .then((answers) => {
+      const quit = answers.exit;
+      if (answers.exit === false) {
+        loadMainPromt();
+      } else if (answers.exit === true) {
+        exit();
+      }
+      return quit;
+    });
 }
 
 function viewDepartments() {
@@ -192,9 +212,10 @@ async function addEmployee() {
       });
     });
 }
-// function updateEmployee() {
-//   inquirer
-//     .prompt(
+
+// async function updateEmployee() {
+//   return inquirer
+//     .prompt([
 //       {
 //         type: "input",
 //         name: "firstName",
@@ -208,13 +229,12 @@ async function addEmployee() {
 //       {
 //         type: "input",
 //         name: "roleID",
-//         message: "What is their employee ID",
-//       }
-//     )
+//         message: "What is their new role",
+//       },
+//     ])
 //     .then((answer) => {
 //       const sql = `UPDATE employee SET role_id = ? WHERE first_name = ?`;
-//       const params = [req.body.roleID, req.params.id];
-
+//       const params = [answer.firstName, answer.lastName, answer.roleID];
 //       db.query(sql, params, (err, result) => {
 //         if (err) {
 //           res.status(400).json({ error: err.message });
@@ -232,5 +252,24 @@ async function addEmployee() {
 //       });
 //     });
 // }
+
+
+
+// function exit() {
+//   prompt.ui.close();
+// }
+
+// // close inquirer input if user press "escape" key
+// process.stdin.on("keypress", (_, key) => {
+//   if (key.name === "escape") {
+//     exit();
+//   }
+// });
+
+// Declare your prompt and save it
+// const prompt = inquirer.prompt({
+//   type: "confirm",
+//   name: "Exit application",
+// });
 
 loadMainPromt();
